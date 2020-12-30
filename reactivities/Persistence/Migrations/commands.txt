@@ -1,1 +1,3 @@
 ﻿dotnet ef migrations add "ActivityEntityAdded" -p Persistence/ -s API/
+dotnet run -p API/
+dotnet watch run 
