@@ -1,38 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import { Header, Icon, List } from 'semantic-ui-react';
+import { Container, Header, Icon, List } from 'semantic-ui-react';
 
-class App extends Component {
-  state = {
-    values: [],
-  };
+import { IActivity } from '../models/activity';
+import NavBar from '../../features/nav/NavBar';
+import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 
-  componentDidMount() {
-    axios.get('http://localhost:5000/api/values').then((res) => {
-      this.setState({
-        values: res.data,
+const App = () => {
+  const [activities, setActivities] = useState<IActivity[]>([]);
+
+  useEffect(() => {
+    axios
+      .get<IActivity[]>('http://localhost:5000/api/activities')
+      .then((res) => {
+        setActivities(res.data);
       });
-    });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <Header as="h2">
-          <Icon name="settings" />
-          <Header.Content>
-            Account Settings
-            <Header.Subheader>Manage your preferences</Header.Subheader>
-          </Header.Content>
-        </Header>
-        <List>
-          {this.state.values.map((value: any) => (
-            <List.Item key={value.id}>{value.name}</List.Item>
-          ))}
-        </List>
-      </div>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <NavBar />
+      <Container style={{ marginTop: '7em' }}>
+        <ActivityDashboard activities={activities} />
+      </Container>
+    </Fragment>
+  );
+};
 
 export default App;
