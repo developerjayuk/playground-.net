@@ -7,8 +7,9 @@ import ActivityDashboard from "../../features/activities/dashboard/ActivityDashb
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [selectedActivity, setSelectedActivity] =
-    useState<Activity | undefined>(undefined);
+  const [selectedActivity, setSelectedActivity] = useState<
+    Activity | undefined
+  >(undefined);
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
@@ -36,9 +37,21 @@ function App() {
     setEditMode(false);
   }
 
+  function handleCreateOrEditActivity(activity: Activity) {
+    activity.id
+      ? setActivities([
+          ...activities.filter((x) => x.id !== activity.id),
+          activity,
+        ])
+      : setActivities([...activities, activity]);
+
+    setEditMode(false);
+    setSelectedActivity(activity);
+  }
+
   return (
     <>
-      <NavBar />
+      <NavBar openForm={handleFormOpen} />
       <Container style={{ marginTop: "7em" }}>
         <ActivityDashboard
           activities={activities}
