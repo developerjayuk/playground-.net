@@ -1,19 +1,22 @@
 import { observer } from "mobx-react-lite";
 import React, { ChangeEvent, useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Button, Form, Segment } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
+import { v4 as uuid } from "uuid";
 
 export default observer(function ActivityForm() {
   const { activityStore } = useStore();
+  const history = useHistory();
   const {
     createActivity,
     updateActivity,
     loading,
     loadActivity,
     loadingInitial,
+    setLoadingInitial,
   } = activityStore;
   const { id } = useParams<{ id: string }>();
 
@@ -32,10 +35,23 @@ export default observer(function ActivityForm() {
       loadActivity(id).then((activity) => {
         setActivity(activity!);
       });
-  }, [id, loadActivity]);
+    else setLoadingInitial(false);
+  }, [id, loadActivity, setLoadingInitial]);
 
   function handleSubmit() {
-    activity.id ? updateActivity(activity) : createActivity(activity);
+    if (activity.id.length === 0) {
+      let newActivity = {
+        ...activity,
+        id: uuid(),
+      };
+      createActivity(activity).then(() =>
+        history.push(`/activities/${newActivity.id}`)
+      );
+    } else {
+      updateActivity(activity).then(() =>
+        history.push(`/activities/${activity.id}`)
+      );
+    }
   }
 
   function handleInputChange(
@@ -86,7 +102,13 @@ export default observer(function ActivityForm() {
           name="venue"
           onChange={handleInputChange}
         />
-        <Button floated="right" type="button" content="Cancel" />
+        <Button
+          floated="right"
+          type="button"
+          content="Cancel"
+          as={Link}
+          to={"/activities"}
+        />
         <Button
           loading={loading}
           floated="right"
