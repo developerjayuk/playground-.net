@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Header, Item, Segment, Image } from "semantic-ui-react";
 import { Activity } from "../../../app/models/activity";
 
@@ -54,7 +55,13 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
         <Button inverted color="red">
           Cancel attendance
         </Button>
-        <Button inverted color="blue" floated="right">
+        <Button
+          inverted
+          color="blue"
+          floated="right"
+          as={Link}
+          to={`/manage/${activity.id}`}
+        >
           Manage Event
         </Button>
       </Segment>
