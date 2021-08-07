@@ -10,9 +10,10 @@ import {
   Icon,
 } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
+import LoginForm from "../users/LoginForm";
 
 export default observer(function HomePage() {
-  const { userStore } = useStore();
+  const { userStore, modalStore } = useStore();
 
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
@@ -33,10 +34,30 @@ export default observer(function HomePage() {
             <Icon name="arrow circle right" />
           </Button>
         ) : (
-          <Button as={Link} to="/login" size="huge" inverted>
-            Login
-            <Icon name="arrow circle right" />
-          </Button>
+          <>
+            <Button
+              onClick={() => modalStore.openModal(<LoginForm />)}
+              size="huge"
+              inverted
+            >
+              Login
+              <Icon
+                name="arrow alternate circle up"
+                style={{ marginLeft: 5 }}
+              />
+            </Button>
+            <Button
+              onClick={() => modalStore.openModal(<h1>Register</h1>)}
+              size="huge"
+              inverted
+            >
+              Register
+              <Icon
+                name="arrow alternate circle up"
+                style={{ marginLeft: 5 }}
+              />
+            </Button>
+          </>
         )}
       </Container>
     </Segment>
