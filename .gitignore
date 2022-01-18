@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 
 /.resources
+eCommerceMusicStore/API/appsettings.json
