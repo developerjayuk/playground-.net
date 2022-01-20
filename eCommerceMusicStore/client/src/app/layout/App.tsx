@@ -1,29 +1,35 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Product } from "../models/product";
 import Catalog from "../../features/catalog/Catalog";
-import { Typography } from "@mui/material";
+import Header from "./Header";
+import {
+  Container,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+} from "@mui/material";
+import { useState } from "react";
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [darkMode, setDarkMode] = useState(true);
+  const palleteType = darkMode ? "dark" : "light";
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+  const themeSelected = createTheme({
+    palette: {
+      mode: palleteType,
+    },
+  });
 
-  async function getProducts() {
-    const products = await axios.get<Product[]>(
-      "http://localhost:5195/api/products"
-    );
-
-    setProducts(products.data);
-  }
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <>
-      <Typography variant="h1">JJ's Music Store</Typography>
-      <Catalog products={products} />
-    </>
+    <ThemeProvider theme={themeSelected}>
+      <CssBaseline />
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Container>
+        <Catalog />
+      </Container>
+    </ThemeProvider>
   );
 }
 

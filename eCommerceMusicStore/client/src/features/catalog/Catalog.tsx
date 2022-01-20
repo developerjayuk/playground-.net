@@ -1,38 +1,26 @@
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Product } from "../../app/models/product";
+import ProductList from "./ProductList";
 
-import GuitarPlaceholder from "guitar-stock-default.png";
-import KeyboardPlaceholder from "keyboard-stock-default.png";
+export default function Catalog() {
+  const [products, setProducts] = useState<Product[]>([]);
 
-interface IProps {
-  products: Product[];
-}
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-export default function Catalog({ products }: IProps) {
+  async function getProducts() {
+    const products = await axios.get<Product[]>(
+      "http://localhost:5195/api/products"
+    );
+
+    setProducts(products.data);
+  }
+
   return (
     <div>
-      {products.map((product) => (
-        <List>
-          <ListItem key={product.id}>
-            <ListItemAvatar>
-              <Avatar
-                src={
-                  product.type.toLowerCase() === "guitar"
-                    ? GuitarPlaceholder
-                    : KeyboardPlaceholder
-                }
-              ></Avatar>
-            </ListItemAvatar>
-            <ListItemText>{product.name}</ListItemText>
-          </ListItem>
-        </List>
-      ))}
+      <ProductList products={products} />
     </div>
   );
 }
