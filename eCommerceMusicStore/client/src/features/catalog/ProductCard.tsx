@@ -8,6 +8,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import GuitarPlaceholder from "../../app/images/guitar-stock-default.png";
 import KeyboardPlaceholder from "../../app/images/keyboard-stock-default.png";
@@ -53,7 +54,9 @@ export default function ProductCard({ product }: IProps) {
       </CardContent>
       <CardActions>
         <Button size="small">Add to Cart</Button>
-        <Button size="small">View product</Button>
+        <Button component={Link} to={`/catalog/${product.id}`} size="small">
+          View product
+        </Button>
       </CardActions>
     </Card>
   );

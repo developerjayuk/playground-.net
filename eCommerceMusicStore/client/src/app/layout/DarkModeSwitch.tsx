@@ -60,12 +60,12 @@ export default function DarkModeSwitch({ darkMode, toggleDarkMode }: IProps) {
       <FormControlLabel
         control={
           <MaterialUISwitch
-            sx={{ m: 1 }}
+            sx={{ marginLeft: 2 }}
             checked={darkMode}
             onChange={toggleDarkMode}
           />
         }
-        label="Dark Mode"
+        label=""
       />
     </FormGroup>
   );
