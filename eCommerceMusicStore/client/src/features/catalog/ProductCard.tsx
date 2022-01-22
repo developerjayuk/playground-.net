@@ -8,6 +8,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 
 import GuitarPlaceholder from "../../app/images/guitar-stock-default.png";
@@ -19,6 +20,14 @@ interface IProps {
 }
 
 export default function ProductCard({ product }: IProps) {
+  // if image fails to load set default in it's place
+  function addDefaultSrc(e: SyntheticEvent<HTMLImageElement, Event>) {
+    e.currentTarget.src =
+      product?.type.toLowerCase() === "guitar"
+        ? GuitarPlaceholder
+        : KeyboardPlaceholder;
+  }
+
   return (
     <Card>
       <CardHeader
@@ -36,11 +45,8 @@ export default function ProductCard({ product }: IProps) {
         sx={{ objectFit: "contain", bgcolor: "primary.light" }}
         component="img"
         height="140"
-        image={
-          product.type.toLowerCase() === "guitar"
-            ? GuitarPlaceholder
-            : KeyboardPlaceholder
-        }
+        image={product.pictureUrl}
+        onError={addDefaultSrc}
         alt={product.name}
         title={product.name}
       />

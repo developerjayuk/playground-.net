@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import {
   Divider,
   Grid,
@@ -14,6 +14,8 @@ import { Product } from "../../app/models/product";
 import LoadingSpinner from "../../features/system/LoadingSpinner";
 import axios from "axios";
 import NotFound from "../system/NotFound";
+import GuitarPlaceholder from "../../app/images/guitar-stock-default.png";
+import KeyboardPlaceholder from "../../app/images/keyboard-stock-default.png";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +30,14 @@ export default function ProductDetails() {
       .finally(() => setLoading(false));
   }, [id]);
 
+  // if image fails to load set default in it's place
+  function addDefaultSrc(e: SyntheticEvent<HTMLImageElement, Event>) {
+    e.currentTarget.src =
+      product?.type.toLowerCase() === "guitar"
+        ? GuitarPlaceholder
+        : KeyboardPlaceholder;
+  }
+
   if (loading) return <LoadingSpinner />;
   if (!product) return <NotFound />;
 
@@ -38,6 +48,7 @@ export default function ProductDetails() {
           src={product.pictureUrl}
           alt={product.name}
           style={{ width: "100%" }}
+          onError={addDefaultSrc}
         />
       </Grid>
       <Grid item xs={6}>
