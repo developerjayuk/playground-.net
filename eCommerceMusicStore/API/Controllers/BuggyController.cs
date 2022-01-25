@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult GetServerError()
         {
-            throw new Exception("error with the server bro!");
+            throw new Exception("Error with the server bro!");
         }
     }
 }

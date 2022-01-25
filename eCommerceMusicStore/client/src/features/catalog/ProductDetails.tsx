@@ -12,7 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/product";
 import LoadingSpinner from "../../features/system/LoadingSpinner";
-import axios from "axios";
+import agent from "../../app/api/agent";
 import NotFound from "../system/NotFound";
 import GuitarPlaceholder from "../../app/images/guitar-stock-default.png";
 import KeyboardPlaceholder from "../../app/images/keyboard-stock-default.png";
@@ -23,11 +23,14 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    axios
-      .get<Product>(`http://localhost:5195/api/products/${id}`)
-      .then((res) => setProduct(res.data))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+    if (id) {
+      setLoading(true);
+
+      agent.Catalog.details(parseInt(id))
+        .then(setProduct)
+        .catch(console.log)
+        .finally(() => setLoading(false));
+    }
   }, [id]);
 
   // if image fails to load set default in it's place
