@@ -27,7 +27,8 @@ axios.interceptors.response.use(
         toast.error(data.title);
         break;
       case 500:
-        toast.error(data.title);
+        window.history.pushState({ data }, "ServerError", "/server-error");
+        window.location.reload();
         break;
       default:
         break;

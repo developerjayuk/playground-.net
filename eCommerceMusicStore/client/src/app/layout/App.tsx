@@ -5,6 +5,7 @@ import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
 import NotFound from "../../features/system/NotFound";
 import Errors from "../../features/system/Errors";
+import ServerError from "../../features/system/ServerError";
 import Header from "./Header";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/errors" element={<Errors />} />
+          <Route path="/server-error" element={<ServerError />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
