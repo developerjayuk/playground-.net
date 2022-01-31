@@ -16,10 +16,35 @@ namespace MyApp
             //p.Assignment3();
             //p.Assignment4();
             //p.Assignment5();
-            p.Assignment6();
+            //p.Assignment6();
+            p.Assignment7();
 
 
             Console.ReadLine();
+        }
+
+        public void Assignment7()
+        {
+            // create a specified output using for loops, continue and labels
+            for (var i = 1; i <= 8; i++)
+            {
+                for (var j = 1; j <= 10; j++)
+                {
+                    if (i == 8) goto myLabel;
+                    
+                    if ((i > 3 || j == 5 || j == 6)) continue;
+                    
+                    myLabel:
+                    Console.Write(j + " ");
+                }
+
+                for (var j = 10; j > 0; j--)
+                {
+                    if (i == 6 && j < 3) continue;
+                    if ((i > 3 && i != 8)) Console.Write(j + " ");
+                }
+                Console.WriteLine();
+            }
         }
 
         public void Assignment6()
@@ -34,7 +59,12 @@ namespace MyApp
                 inputs.Add(Convert.ToInt32(Console.ReadLine()));
             }
 
-            var max = inputs.Max();
+            var max = inputs[0];
+
+            for (var i = 1; i < numberOfInputs; i++)
+            {
+               if (inputs[i] > max) max = inputs[i];
+            }
 
             Console.WriteLine($"The largest number you input was {max}");
         }
