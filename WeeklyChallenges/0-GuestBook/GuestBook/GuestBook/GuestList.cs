@@ -29,7 +29,7 @@
         {
             var valid = false;
             valid = int.TryParse(input, out var option) && _menuOptions.ContainsKey(option);
-            
+
             if (valid)
             {
                 switch (option)
@@ -80,7 +80,7 @@
             FullList.Add(name, partySize);
             FullPartySize += partySize;
             Console.WriteLine("** User successfully added to the guest list");
-            
+
             DisplayMenu();
         }
 
