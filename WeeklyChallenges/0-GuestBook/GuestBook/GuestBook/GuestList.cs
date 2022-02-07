@@ -1,4 +1,6 @@
-﻿namespace GuestBook
+﻿using GuestBookLibrary.Models;
+
+namespace GuestBook
 {
     internal class GuestList
     {
@@ -9,8 +11,7 @@
             { 0, "Exit the program" }
         };
 
-        private Dictionary<string, int> FullList = new();
-        private int FullPartySize = 0;
+        private List<GuestModel> FullList = new();
 
         public void DisplayMenu()
         {
@@ -25,6 +26,7 @@
             var input = Console.ReadLine();
             ConfirmMenuSelection(input);
         }
+
         public void ConfirmMenuSelection(string? input)
         {
             var valid = false;
@@ -54,18 +56,27 @@
 
         private void AddNewGuest()
         {
-            var name = "";
+            var firstName = "";
+            var lastName = "";
             var partySize = 0;
+            var messageToHost = "";
 
             Console.WriteLine("---------------------------------------");
             Console.WriteLine(" * Add New Guest");
 
             do
             {
-                Console.Write("Please enter your name: ");
-                name = Console.ReadLine();
+                Console.Write("Please enter your first name: ");
+                firstName = Console.ReadLine();
 
-            } while (!ValidName(name));
+            } while (!ValidName(firstName));
+
+            do
+            {
+                Console.Write("Please enter your last name: ");
+                lastName = Console.ReadLine();
+
+            } while (!ValidName(lastName));
 
             do
             {
@@ -77,8 +88,10 @@
 
             } while (!ValidPartySize(partySize));
 
-            FullList.Add(name, partySize);
-            FullPartySize += partySize;
+            Console.WriteLine("Please enter any special requirements you may have (optional): ");
+            messageToHost = Console.ReadLine();
+            
+            FullList.Add(new GuestModel() {FirstName = firstName, LastName = lastName, PartySize = partySize, MessageToHost = messageToHost});
             Console.WriteLine("** User successfully added to the guest list");
 
             DisplayMenu();
@@ -88,7 +101,7 @@
         {
             Console.WriteLine("---------------------------------------");
             Console.WriteLine($" Total number of groups: {FullList.Count}");
-            Console.WriteLine($" Total number of guests: {FullPartySize}");
+            Console.WriteLine($" Total number of guests: {TotalNumberOfPeople(FullList)}");
 
             if (FullList.Count > 0)
             {
@@ -96,7 +109,11 @@
 
                 foreach (var guest in FullList)
                 {
-                    Console.WriteLine($" - Guest {guest.Key} as a party of {guest.Value}.");
+                    Console.WriteLine($"Guest: {guest.LastName} as a party of {guest.PartySize}.");
+                    if (string.IsNullOrEmpty(guest.MessageToHost) == false)
+                    {
+                        Console.WriteLine($" - Additional Info: {guest.MessageToHost}");
+                    }
                 }
             }
 
@@ -109,11 +126,17 @@
             Environment.Exit(0);
         }
 
-        private bool ValidName(string input)
+        private static int TotalNumberOfPeople(List<GuestModel> guests)
+        {
+            return guests.Select(g => g.PartySize).Sum();
+        }
+
+        private static bool ValidName(string input)
         {
             return input.Length > 0;
         }
-        private bool ValidPartySize(int input)
+
+        private static bool ValidPartySize(int input)
         {
             return input is > 0 and <= 20;
         }
