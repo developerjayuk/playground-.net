@@ -5,13 +5,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BasicApi.Controllers;
+namespace BasicApi.Controllers.v2;
 
 /// <summary>
-/// Basic example, not real production ready code
+/// Basic auth example, not real production ready code
 /// </summary>
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[ApiVersion("2.0")]
 public class AuthenticationController : ControllerBase
 {
     public IConfiguration _config { get; }
@@ -23,7 +24,7 @@ public class AuthenticationController : ControllerBase
         _config = config;
     }
 
-    // api/authentication/token
+    // api/v2/authentication/token
     [HttpPost("token")]
     [AllowAnonymous]
     public ActionResult<string> Authenticate([FromBody] AuthenticationData data)

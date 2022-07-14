@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BasicApi.Controllers;
-
-[Route("api/[controller]")]
+namespace BasicApi.Controllers.v2;
+[Route("api/v{verion:apiVersion}/[controller]")]
+[ApiVersion("2.0")]
 [ApiController]
 public class UsersController : ControllerBase
 {
@@ -15,40 +15,40 @@ public class UsersController : ControllerBase
         _config = config;
     }
 
-    // GET: api/users
+    // GET: api/v2/users
     [HttpGet]
     public IEnumerable<string> Get()
     {
         List<string> output = new();
-        for (int i = 0; i < Random.Shared.Next(2,10); i++)
+        for (int i = 0; i < Random.Shared.Next(2, 10); i++)
         {
-            output.Add($"Value #{i+1}");
+            output.Add($"Value #{i + 1}");
         }
 
-        return new string[] { "value1", "value2" };
+        return new string[] { "v2 value1", "value2" };
     }
 
-    // GET api/users/5
+    // GET api/v2/users/5
     [HttpGet("{id}")]
     public string Get(int id)
     {
         return $"Value #{id}";
     }
 
-    // POST api/users
+    // POST api/v2/users
     [HttpPost]
     [Authorize(Policy = PolicyConstants.MustHaveEmployeeId)]
     public void Post([FromBody] string value)
     {
     }
 
-    // PUT api/users/5
+    // PUT api/v2/users/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
     {
     }
 
-    // DELETE api/users/5
+    // DELETE api/v2/users/5
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
