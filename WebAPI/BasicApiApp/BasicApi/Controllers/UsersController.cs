@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BasicApi.Constants;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BasicApi.Controllers;
 
@@ -35,6 +37,7 @@ public class UsersController : ControllerBase
 
     // POST api/users
     [HttpPost]
+    [Authorize(Policy = PolicyConstants.MustHaveEmployeeId)]
     public void Post([FromBody] string value)
     {
     }
