@@ -19,7 +19,9 @@ public class UsersController : ControllerBase
     [HttpGet]
     public IEnumerable<string> Get()
     {
-        return new string[] { "value1", "value2" };
+        // simulating unhandled exception
+        throw new Exception("An error happened! :(");
+        //return new string[] { "value1", "value2" };
     }
 
     // GET api/<UsersController>/5
