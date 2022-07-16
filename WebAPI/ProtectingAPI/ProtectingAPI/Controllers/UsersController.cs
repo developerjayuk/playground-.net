@@ -9,7 +9,7 @@ public class UsersController : ControllerBase
 {
     // GET: api/<UsersController>
     [HttpGet]
-    [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)]
+    //[ResponseCache(Duration = 10, Location = ResponseCacheLocation.Any, NoStore = false)]
     public IEnumerable<string> Get()
     {
         return new string[] { Random.Shared.Next(1,101).ToString() };
