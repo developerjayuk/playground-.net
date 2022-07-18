@@ -27,6 +27,8 @@ builder.Services.AddAuthentication("Bearer")
                 .GetBytes(builder.Configuration.GetValue<string>("Authentication:SecretKey")))
         };
     });
+builder.Services.AddHealthChecks()
+    .AddSqlServer(builder.Configuration.GetConnectionString("Default"));
 
 var app = builder.Build();
 
@@ -43,5 +45,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health").AllowAnonymous();
 
 app.Run();
