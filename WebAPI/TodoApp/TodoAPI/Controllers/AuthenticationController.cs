@@ -58,7 +58,7 @@ public class AuthenticationController : ControllerBase
             DateTime.UtcNow.AddMinutes(1),
             signingCredentials
         );
-
+        
         return new JwtSecurityTokenHandler().WriteToken(token);
 
     }
