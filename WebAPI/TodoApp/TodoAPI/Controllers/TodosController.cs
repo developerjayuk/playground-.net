@@ -10,36 +10,74 @@ namespace TodoAPI.Controllers
     public class TodosController : ControllerBase
     {
         private readonly ITodoData _data;
+        private readonly ILogger<TodosController> _logger;
 
-        public TodosController(ITodoData data)
+        public TodosController(ITodoData data, ILogger<TodosController> logger)
         {
             _data = data;
+            _logger = logger;
         }
 
         private int GetUserId()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            return int.Parse(userId);
+            return userId is null ? 0 : int.Parse(userId);
+        }
+
+        private string GetRequestInfo(HttpRequest request, int? userId)
+        {
+            return $"{request.Method} {request.Path} for {userId}";
         }
 
         // GET: api/todos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoModel>>> Get()
         {
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest();
+            }
 
-            // TODO: update to check userid is valid
-            var todos = await _data.GetAllAssigned(GetUserId());
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
 
-            return Ok(todos);
+            try
+            {
+                var todos = await _data.GetAllAssigned(userId);
+                return Ok(todos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed", requestInfo);
+                return BadRequest();
+            }
         }
 
         // GET api/todos/5
         [HttpGet("{todoId}")]
         public async Task<ActionResult<TodoModel>> Get(int todoId)
         {
-            var todo = await _data.GetOneAssigned(GetUserId(), todoId);
-        
-            return Ok(todo);
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest(); 
+            }
+
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
+
+            try
+            {
+                var todo = await _data.GetOneAssigned(userId, todoId);
+                return Ok(todo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed for {todoId}", requestInfo, todoId);
+                return BadRequest();
+            }
+
         }
 
 
@@ -47,33 +85,104 @@ namespace TodoAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoModel>> Post([FromBody] string task)
         {
-            var todo = await _data.Create(GetUserId(), task);
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest();
+            }
 
-            return Ok(todo);
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
+
+            try
+            {
+                var todo = await _data.Create(userId, task);
+                return Ok(todo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed with {task}", requestInfo, task);
+                return BadRequest();
+            }
         }
 
         // PUT api/todos/5
         [HttpPut("{todoId}")]
         public async Task<ActionResult> Put(int todoId, [FromBody] string task)
         {
-            await _data.UpdateTask(GetUserId(), todoId, task);
-            return NoContent();
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest();
+            }
+
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
+
+            try
+            {
+                await _data.UpdateTask(userId, todoId, task);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed for {todoId} with {task}",
+                    requestInfo, todoId, task);
+                return BadRequest();
+            }
         }
 
         // PUT api/todos/5/complete
         [HttpPut("{todoId}/complete")]
         public async Task<ActionResult> Complete(int todoId)
         {
-            await _data.CompleteTodo(GetUserId(), todoId);
-            return NoContent();
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest();
+            }
+
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
+
+            try
+            {
+                await _data.CompleteTodo(userId, todoId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed for {todoId}",
+                    requestInfo, todoId);
+                return BadRequest();
+            }
+
         }
 
         // DELETE api/todos/5
         [HttpDelete("{todoId}")]
         public async Task<ActionResult> Delete(int todoId)
         {
-            await _data.Delete(GetUserId(), todoId);
-            return NoContent();
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return BadRequest();
+            }
+            
+            var requestInfo = GetRequestInfo(Request, userId);
+            _logger.LogInformation("{requestInfo} request", requestInfo);
+
+            try
+            {
+                await _data.Delete(userId, todoId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{requestInfo} failed for {todoId}",
+                    requestInfo, todoId);
+                return BadRequest();
+            }
         }
     }
 }
