@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{CA948CE3-E7D
 		DatabaseScripts.sql = DatabaseScripts.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorClientApp", "BlazorClientApp\BlazorClientApp.csproj", "{15F67DB2-22F0-49B8-86C0-BBAB53E4CD04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{774A8DA3-243D-45BB-B955-C399464E69D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774A8DA3-243D-45BB-B955-C399464E69D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{774A8DA3-243D-45BB-B955-C399464E69D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15F67DB2-22F0-49B8-86C0-BBAB53E4CD04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F67DB2-22F0-49B8-86C0-BBAB53E4CD04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F67DB2-22F0-49B8-86C0-BBAB53E4CD04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F67DB2-22F0-49B8-86C0-BBAB53E4CD04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

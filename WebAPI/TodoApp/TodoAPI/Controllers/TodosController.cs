@@ -26,7 +26,7 @@ namespace TodoAPI.Controllers
 
         private string GetRequestInfo(HttpRequest request, int? userId)
         {
-            return $"{request.Method} {request.Path} for {userId}";
+            return $"{request.Method} {request.Path} for UserId:{userId}";
         }
 
         // GET: api/todos

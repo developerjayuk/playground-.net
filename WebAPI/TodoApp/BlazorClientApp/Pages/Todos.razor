@@ -1,0 +1,55 @@
+﻿@page "/todos"
+@using System.Net.Http.Json
+@using System.Net.Http.Headers
+@inject IHttpClientFactory factory
+@inject TokenModel tokenInfo
+
+<PageTitle>My Todos</PageTitle>
+
+<h1>My Todos</h1>
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="h4 text-danger">@errorMessage</div>
+}
+
+<button class="btn btn-primary" @onclick="FetchTodos">Get All Todos</button>
+
+@if (todos is not null)
+{
+    @foreach (var t in todos)
+    {
+        if (t.IsComplete)
+        {
+            <div class="h2">@t.Task (Completed)</div>
+        }
+        else
+        {
+            <div class="h2">@t.Task</div>
+        }
+    }
+}
+
+@code {
+    private List<TodoModel>? todos;
+    private HttpClient? client;
+    private string? errorMessage;
+
+    private async void FetchTodos()
+    {
+        errorMessage = "";
+        client = factory.CreateClient("api");
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", tokenInfo.Token);
+
+        try
+        {
+            todos = await client.GetFromJsonAsync<List<TodoModel>>("Todos");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+}
