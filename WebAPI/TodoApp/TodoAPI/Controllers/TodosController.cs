@@ -30,7 +30,7 @@ namespace TodoAPI.Controllers
         }
 
         // GET: api/todos
-        [HttpGet]
+        [HttpGet(Name = "GetAllTodos")]
         public async Task<ActionResult<IEnumerable<TodoModel>>> Get()
         {
             int userId = GetUserId();
@@ -55,7 +55,7 @@ namespace TodoAPI.Controllers
         }
 
         // GET api/todos/5
-        [HttpGet("{todoId}")]
+        [HttpGet("{todoId}", Name = "GetOneTodo")]
         public async Task<ActionResult<TodoModel>> Get(int todoId)
         {
             int userId = GetUserId();
@@ -80,9 +80,8 @@ namespace TodoAPI.Controllers
 
         }
 
-
         // POST api/todos
-        [HttpPost]
+        [HttpPost(Name = "CreateTodo")]
         public async Task<ActionResult<TodoModel>> Post([FromBody] string task)
         {
             int userId = GetUserId();
@@ -107,7 +106,7 @@ namespace TodoAPI.Controllers
         }
 
         // PUT api/todos/5
-        [HttpPut("{todoId}")]
+        [HttpPut("{todoId}", Name = "UpdateTodo")]
         public async Task<ActionResult> Put(int todoId, [FromBody] string task)
         {
             int userId = GetUserId();
@@ -133,7 +132,7 @@ namespace TodoAPI.Controllers
         }
 
         // PUT api/todos/5/complete
-        [HttpPut("{todoId}/complete")]
+        [HttpPut("{todoId}/complete", Name = "CompleteTodo")]
         public async Task<ActionResult> Complete(int todoId)
         {
             int userId = GetUserId();
@@ -160,7 +159,7 @@ namespace TodoAPI.Controllers
         }
 
         // DELETE api/todos/5
-        [HttpDelete("{todoId}")]
+        [HttpDelete("{todoId}", Name = "DeleteTodo")]
         public async Task<ActionResult> Delete(int todoId)
         {
             int userId = GetUserId();

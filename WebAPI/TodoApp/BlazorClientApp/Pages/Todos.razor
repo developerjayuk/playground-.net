@@ -24,7 +24,13 @@
         }
         else
         {
-            <div class="h2">@t.Task</div>
+            <div class="h2">
+                @t.Task
+                <button class="btn btn-sm btn-primary"
+                    @onclick="() => CompleteTodo(t)">
+                    Complete
+                </button>
+            </div>
         }
     }
 }
@@ -50,6 +56,13 @@
             errorMessage = ex.Message;
         }
 
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void CompleteTodo(TodoModel todo)
+    {
+        await client!.PutAsJsonAsync<string>($"todos/{todo.Id}/complete", "");
+        todo.IsComplete = true;
         await InvokeAsync(StateHasChanged);
     }
 }

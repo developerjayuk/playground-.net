@@ -21,7 +21,7 @@ public class AuthenticationController : ControllerBase
     public record AuthenticationData(string? UserName, string? Password);
     public record UserData(int Id, string FirstName, string LastName, string UserName);
 
-    [HttpPost("token")]
+    [HttpPost("token", Name = "GenerateToken")]
     [AllowAnonymous]
     public ActionResult<string> Authenticate([FromBody] AuthenticationData data)
     {
