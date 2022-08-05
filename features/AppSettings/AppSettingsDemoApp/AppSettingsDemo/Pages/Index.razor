@@ -1,0 +1,23 @@
+﻿@page "/"
+@inject IConfiguration _config
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<p>mySetting = @mySetting</p>
+<p>mySubSetting = @mySubSetting</p>
+<p>myConnectionString = @myConnectionString</p>
+
+@code {
+    string mySetting = "";
+    string mySubSetting = "";
+    string myConnectionString = "";
+
+    protected override void OnInitialized()
+    {
+        mySetting = _config.GetValue<string>("MySetting");
+        mySubSetting = _config.GetValue<string>("MainSetting:SubSetting");
+        myConnectionString = _config.GetConnectionString("MyConnectionString");
+    }
+}
