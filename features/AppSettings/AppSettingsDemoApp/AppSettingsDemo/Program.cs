@@ -1,8 +1,11 @@
+using AppSettingsDemo.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.Configure<EmailSettingsOptions>(builder.Configuration.GetSection("EmailSettings"));
 
 var app = builder.Build();
 

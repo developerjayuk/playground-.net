@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject IConfiguration _config
+@inject IOptions<EmailSettingsOptions> _emailSettingsOptions
 
 <PageTitle>Index</PageTitle>
 
@@ -8,16 +9,35 @@
 <p>mySetting = @mySetting</p>
 <p>mySubSetting = @mySubSetting</p>
 <p>myConnectionString = @myConnectionString</p>
+<p>Email enabled =  @emailSettings.EnableEmailSystem</p>
+<p>
+    Email servers: 
+    @foreach (string server in @emailSettings.EmailServers)
+    {
+        @server@:;&nbsp;
+    }
+</p>
+
 
 @code {
     string mySetting = "";
     string mySubSetting = "";
     string myConnectionString = "";
+    EmailSettingsOptions emailSettings = new();
+    EmailSettingsOptions emailSettingsOptions = new();
+
+
 
     protected override void OnInitialized()
     {
         mySetting = _config.GetValue<string>("MySetting");
         mySubSetting = _config.GetValue<string>("MainSetting:SubSetting");
         myConnectionString = _config.GetConnectionString("MyConnectionString");
+
+        emailSettings = _config.GetSection("EmailSettings").Get<EmailSettingsOptions>();
+       
+        // alternative way via injection
+        emailSettingsOptions = _emailSettingsOptions.Value;
+
     }
 }
