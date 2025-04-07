@@ -14,8 +14,7 @@ namespace WorldTravel.Infastructure.Migrations
                 name: "Continents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -31,7 +30,7 @@ namespace WorldTravel.Infastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContinentId = table.Column<int>(type: "int", nullable: false),
+                    ContinentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Population = table.Column<int>(type: "int", nullable: false),
                     NumberOfTourists = table.Column<int>(type: "int", nullable: false)
                 },

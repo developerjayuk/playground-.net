@@ -11,7 +11,7 @@ using WorldTravel.Infastructure.Persistence;
 namespace WorldTravel.Infastructure.Migrations
 {
     [DbContext(typeof(WorldTravelDbContext))]
-    [Migration("20250406102339_initial")]
+    [Migration("20250407174544_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -26,11 +26,8 @@ namespace WorldTravel.Infastructure.Migrations
 
             modelBuilder.Entity("WorldTravel.Domain.Entities.Continent", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -49,8 +46,9 @@ namespace WorldTravel.Infastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ContinentId")
-                        .HasColumnType("int");
+                    b.Property<string>("ContinentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
