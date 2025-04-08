@@ -25,4 +25,10 @@ public class CountriesController(ICountriesService countriesService) : Controlle
         }
         return Ok(country);
     }
+
+    //[HttpPost]
+    //public async Task<IActionResult> CreateCountry([FromBody] )
+    //{
+
+    //}
 }

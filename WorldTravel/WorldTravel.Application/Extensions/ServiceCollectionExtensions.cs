@@ -9,5 +9,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<ICountriesService, CountriesService>();
         services.AddScoped<IContinentsService, ContinentsService>();
+
+        services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
     }
 }

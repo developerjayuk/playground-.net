@@ -11,9 +11,9 @@ GET {{WorldTravel.API_HostAddress}}/api/countries
 
 ###
 
-@id=US
+@countryId=US
 
-GET {{WorldTravel.API_HostAddress}}/api/countries/{{id}}
+GET {{WorldTravel.API_HostAddress}}/api/countries/{{countryid}}
 
 
 // Continents
@@ -22,7 +22,7 @@ GET {{WorldTravel.API_HostAddress}}/api/countries/{{id}}
 GET {{WorldTravel.API_HostAddress}}/api/continents
 
 ###
-
-GET {{WorldTravel.API_HostAddress}}/api/continents/{id}
+@continentId=EU
+GET {{WorldTravel.API_HostAddress}}/api/continents/{{continentId}}
 
 ###
