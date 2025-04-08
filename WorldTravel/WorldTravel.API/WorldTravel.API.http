@@ -1,9 +1,28 @@
 @host = https://localhost
 @port = 7208
 
-@WorldTravel.API_HostAddress = {{host}}:{{port}}
+@WorldTravel.API_HostAddress = https://localhost:7208
 
-GET {{WorldTravel.API_HostAddress}}/api/weatherforecast/
-Accept: application/json
+
+// Countries
+###
+
+GET {{WorldTravel.API_HostAddress}}/api/countries
+
+###
+
+@id=US
+
+GET {{WorldTravel.API_HostAddress}}/api/countries/{{id}}
+
+
+// Continents
+###
+
+GET {{WorldTravel.API_HostAddress}}/api/continents
+
+###
+
+GET {{WorldTravel.API_HostAddress}}/api/continents/{id}
 
 ###

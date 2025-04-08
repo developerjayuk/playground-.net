@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WorldTravel.Infastructure.Persistence;
 using WorldTravel.Infastructure.Seeders;
+using WorldTravel.Infastructure.Repositories;
+using WorldTravel.Domain.Repositories;
 
 namespace WorldTravel.Infastructure.Extensions;
 
@@ -14,6 +16,8 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<WorldTravelDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<IWorldTravelSeeder, WorldTravelSeeder>();
+        services.AddScoped<ICountriesRepository, CountriesRepository>();
+        services.AddScoped<IContinentsRepository, ContinentsRepository>();
     }
 }
 
