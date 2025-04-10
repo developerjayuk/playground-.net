@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.WorldTravel;
+using WorldTravel.Application.WorldTravel.Dtos;
 
 namespace WorldTravel.API.Controllers;
 
@@ -26,9 +27,15 @@ public class CountriesController(ICountriesService countriesService) : Controlle
         return Ok(country);
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> CreateCountry([FromBody] )
-    //{
+    [HttpPost]
+    public async Task<IActionResult> CreateCountry([FromBody] CreateCountryDto createCountry)
+    {
+        var id = await countriesService.CreateCountry(createCountry);
 
-    //}
+        if (id == null)
+        {
+            return BadRequest("Country could not be created.");
+        }
+        return CreatedAtAction(nameof(GetById), new { id }, null);
+    }
 }

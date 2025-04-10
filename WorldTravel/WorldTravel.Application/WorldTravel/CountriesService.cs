@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using WorldTravel.Application.WorldTravel.Dtos;
+using WorldTravel.Domain.Entities;
 using WorldTravel.Domain.Repositories;
 
 namespace WorldTravel.Application.WorldTravel;
@@ -24,5 +25,19 @@ internal class CountriesService(ICountriesRepository countriesRepository, ILogge
         var countryDto = mapper.Map<CountryDto>(country);
 
         return countryDto;
+    }
+
+    public async Task<string?> CreateCountry(CreateCountryDto dto)
+    {
+        logger.LogInformation("Creating country: " + dto.Name);
+        var country = mapper.Map<Country>(dto);
+        var id = await countriesRepository.CreateAsync(country);
+        if (id == null)
+        {
+            logger.LogError("Country could not be created");
+            return id;
+        }
+        logger.LogInformation("Country created with id: " + id);
+        return id;
     }
 }

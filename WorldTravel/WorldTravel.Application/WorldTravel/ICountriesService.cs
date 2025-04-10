@@ -5,5 +5,6 @@ namespace WorldTravel.Application.WorldTravel
     {
         Task<IEnumerable<CountryDto>> GetAllCountries();
         Task<CountryDto?> GetCountryById(string id);
+        Task<string?> CreateCountry(CreateCountryDto dto);
     }
 }

@@ -22,4 +22,11 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
             .FirstOrDefaultAsync(c => c.Id == id);
         return country;
     }
+
+    public async Task<string> CreateAsync(Country country)
+    {
+        await dbContext.Countries.AddAsync(country);
+        await dbContext.SaveChangesAsync();
+        return country.Id;
+    }
 }

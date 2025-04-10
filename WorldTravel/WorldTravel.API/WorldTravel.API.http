@@ -6,23 +6,35 @@
 
 // Countries
 ###
-
+// get all countries
 GET {{WorldTravel.API_HostAddress}}/api/countries
 
 ###
-
-@countryId=US
-
+// get country by id
+@countryId=us
 GET {{WorldTravel.API_HostAddress}}/api/countries/{{countryid}}
-
-
-// Continents
 ###
+// create new country
+POST {{WorldTravel.API_HostAddress}}/api/countries
+Content-Type: application/json
 
+{
+    "Id": "1234",
+    "Name": "England",
+    "Description": "A country in the EU",
+    "ContinentId": "EU",
+    "Population": 64000000,
+    "NumberOfTourists": 50000
+}
+###
+// Continents
+// get all continents
 GET {{WorldTravel.API_HostAddress}}/api/continents
 
 ###
+// get continent by id
 @continentId=EU
 GET {{WorldTravel.API_HostAddress}}/api/continents/{{continentId}}
 
 ###
+

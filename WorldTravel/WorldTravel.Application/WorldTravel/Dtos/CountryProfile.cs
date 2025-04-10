@@ -7,7 +7,7 @@ public class CountryProfile : Profile
 {
     public CountryProfile()
     {
-        CreateMap<CountryCreateDto, Country>();
+        CreateMap<CreateCountryDto, Country>();
         //.ForMember(dest => dest.Continent, opt => opt.Ignore())
         //.ForMember(dest => dest.Id, opt => opt.Ignore());
 
