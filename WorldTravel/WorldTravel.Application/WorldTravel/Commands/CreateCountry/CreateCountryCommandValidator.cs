@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using WorldTravel.Application.WorldTravel.Dtos;
 
-namespace WorldTravel.Application.WorldTravel.Validators;
+namespace WorldTravel.Application.WorldTravel.Commands.CreateCountry;
 
-public class CreateCountryDtoValidator : AbstractValidator<CreateCountryDto>
+public class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
 {
-    public CreateCountryDtoValidator()
+    public CreateCountryCommandValidator()
     {
         RuleFor(c => c.Id)
             .NotEmpty()

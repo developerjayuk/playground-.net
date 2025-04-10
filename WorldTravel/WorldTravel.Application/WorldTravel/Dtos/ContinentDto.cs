@@ -1,6 +1,4 @@
-﻿using WorldTravel.Domain.Entities;
-
-namespace WorldTravel.Application.WorldTravel.Dtos;
+﻿namespace WorldTravel.Application.WorldTravel.Dtos;
 
 public class ContinentDto
 {

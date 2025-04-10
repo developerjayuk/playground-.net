@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
 
-namespace WorldTravel.Application.WorldTravel.Dtos;
+namespace WorldTravel.Application.WorldTravel.Commands.CreateCountry;
 
-public class CreateCountryDto
+public class CreateCountryCommand : IRequest<string?>
 {
     public string Id { get; set; } = default!;
     public string Name { get; set; } = default!;

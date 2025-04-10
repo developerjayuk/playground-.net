@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     {
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
 
-        services.AddScoped<ICountriesService, CountriesService>();
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(applicationAssembly));
         services.AddScoped<IContinentsService, ContinentsService>();
 
         services.AddAutoMapper(applicationAssembly);

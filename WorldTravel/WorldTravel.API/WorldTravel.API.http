@@ -1,20 +1,13 @@
 @host = https://localhost
 @port = 7208
-
 @WorldTravel.API_HostAddress = https://localhost:7208
 
-
-// Countries
-###
-// get all countries
+### get all countries
 GET {{WorldTravel.API_HostAddress}}/api/countries
 
-###
-// get country by id
-@countryId=us
-GET {{WorldTravel.API_HostAddress}}/api/countries/{{countryid}}
-###
-// create new country
+### get country by id
+GET {{WorldTravel.API_HostAddress}}/api/countries/en
+### create new country
 POST {{WorldTravel.API_HostAddress}}/api/countries
 Content-Type: application/json
 
@@ -26,15 +19,22 @@ Content-Type: application/json
     "Population": 64000000,
     "NumberOfTourists": 50000
 }
-###
-// Continents
-// get all continents
+### delete country
+DELETE {{WorldTravel.API_HostAddress}}/api/countries/eng
+
+### get all continents
 GET {{WorldTravel.API_HostAddress}}/api/continents
 
-###
-// get continent by id
-@continentId=EU
-GET {{WorldTravel.API_HostAddress}}/api/continents/{{continentId}}
+### get continent by id
+GET {{WorldTravel.API_HostAddress}}/api/continents/eu
 
 ###
 
+PATCH {{WorldTravel.API_HostAddress}}/api/countries/en
+Content-Type: application/json
+
+{
+  
+}
+
+###

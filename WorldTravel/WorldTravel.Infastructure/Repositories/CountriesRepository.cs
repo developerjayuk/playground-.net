@@ -29,4 +29,15 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
         await dbContext.SaveChangesAsync();
         return country.Id;
     }
+
+    public async Task DeleteAsync(Country country)
+    {
+        dbContext.Countries.Remove(country);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await dbContext.SaveChangesAsync();
+    }
 }
