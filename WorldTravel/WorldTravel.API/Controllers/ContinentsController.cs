@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WorldTravel.Application.WorldTravel;
-using WorldTravel.Application.WorldTravel.Dtos;
+using WorldTravel.Application.Countries;
+using WorldTravel.Application.Countries.Dtos;
 
 namespace WorldTravel.API.Controllers;
 

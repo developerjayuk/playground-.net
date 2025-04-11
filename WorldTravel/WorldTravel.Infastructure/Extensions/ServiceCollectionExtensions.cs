@@ -16,8 +16,9 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<WorldTravelDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
 
         services.AddScoped<IWorldTravelSeeder, WorldTravelSeeder>();
-        services.AddScoped<ICountriesRepository, CountriesRepository>();
         services.AddScoped<IContinentsRepository, ContinentsRepository>();
+        services.AddScoped<ICountriesRepository, CountriesRepository>();
+        services.AddScoped<ICitiesRepository, CitiesRepository>();
     }
 }
 

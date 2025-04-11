@@ -10,7 +10,7 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
     public async Task<IEnumerable<Country>> GetAllAsync()
     {
         var countries = await dbContext.Countries
-            .Include(c => c.Continent)
+            .Include(c => c.Cities)
             .ToListAsync();
         return countries;
     }
@@ -18,7 +18,7 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
     public async Task<Country?> GetByIdAsync(string id)
     {
         var country = await dbContext.Countries
-            .Include(c => c.Continent)
+            .Include(c => c.Cities)
             .FirstOrDefaultAsync(c => c.Id == id);
         return country;
     }

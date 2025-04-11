@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WorldTravel.Application.WorldTravel.Commands.CreateCountry;
-using WorldTravel.Application.WorldTravel.Commands.DeleteCountry;
-using WorldTravel.Application.WorldTravel.Commands.UpdateCountry;
-using WorldTravel.Application.WorldTravel.Dtos;
-using WorldTravel.Application.WorldTravel.Queries.GetAllCountries;
-using WorldTravel.Application.WorldTravel.Queries.GetCountryById;
+using WorldTravel.Application.Countries.Commands.CreateCountry;
+using WorldTravel.Application.Countries.Commands.DeleteCountry;
+using WorldTravel.Application.Countries.Commands.UpdateCountry;
+using WorldTravel.Application.Countries.Dtos;
+using WorldTravel.Application.Countries.Queries.GetAllCountries;
+using WorldTravel.Application.Countries.Queries.GetCountryById;
 
 namespace WorldTravel.API.Controllers;
 
@@ -28,7 +28,7 @@ public class CountriesController(IMediator mediator) : ControllerBase
         return Ok(country);
     }
 
-    [HttpPatch]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CreateCountry(CreateCountryCommand command)
     {

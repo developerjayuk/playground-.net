@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using WorldTravel.Application.WorldTravel;
+using WorldTravel.Application.Countries;
 
 namespace WorldTravel.Application.Extensions;
 

@@ -37,4 +37,12 @@ Content-Type: application/json
   
 }
 
+### create new city
+POST {{WorldTravel.API_HostAddress}}/api/countries/US/cities
+Content-Type: application/json
+
+{
+  "Name": "New York"
+}
+
 ###
