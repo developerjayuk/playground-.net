@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.WorldTravel;
+using WorldTravel.Application.WorldTravel.Dtos;
 
 namespace WorldTravel.API.Controllers;
 
@@ -9,14 +10,14 @@ namespace WorldTravel.API.Controllers;
 public class ContinentsController(IContinentsService continentsService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<ContinentDto>>> GetAll()
     {
         var continents = await continentsService.GetAllContinents();
         return Ok(continents);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] string id)
+    public async Task<ActionResult<ContinentDto?>> GetById([FromRoute] string id)
     {
         var continent = await continentsService.GetContinentById(id);
         if (continent == null)

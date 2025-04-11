@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.WorldTravel.Commands.CreateCountry;
 using WorldTravel.Application.WorldTravel.Commands.DeleteCountry;
 using WorldTravel.Application.WorldTravel.Commands.UpdateCountry;
+using WorldTravel.Application.WorldTravel.Dtos;
 using WorldTravel.Application.WorldTravel.Queries.GetAllCountries;
 using WorldTravel.Application.WorldTravel.Queries.GetCountryById;
 
@@ -14,14 +15,14 @@ namespace WorldTravel.API.Controllers;
 public class CountriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<CountryDto>>> GetAll()
     {
         var countries = await mediator.Send(new GetAllCountriesQuery());
         return Ok(countries);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] string id)
+    public async Task<ActionResult<CountryDto?>> GetById([FromRoute] string id)
     {
         var country = await mediator.Send(new GetCountryByIdQuery(id));
         if (country == null)
@@ -31,7 +32,8 @@ public class CountriesController(IMediator mediator) : ControllerBase
         return Ok(country);
     }
 
-    [HttpPost]
+    [HttpPatch]
+    [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CreateCountry(CreateCountryCommand command)
     {
         var id = await mediator.Send(command);
@@ -45,6 +47,7 @@ public class CountriesController(IMediator mediator) : ControllerBase
 
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCountry([FromRoute] string id)
     {
         var isDeleted = await mediator.Send(new DeleteCountryCommand(id));
