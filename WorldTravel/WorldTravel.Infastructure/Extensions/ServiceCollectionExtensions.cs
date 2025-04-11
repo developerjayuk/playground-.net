@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("WorldTravelDb");
-        services.AddDbContext<WorldTravelDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<WorldTravelDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
 
         services.AddScoped<IWorldTravelSeeder, WorldTravelSeeder>();
         services.AddScoped<ICountriesRepository, CountriesRepository>();

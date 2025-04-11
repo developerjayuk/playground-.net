@@ -11,7 +11,7 @@ public class CreateCountryCommandHandler(ILogger<CreateCountryCommandHandler> lo
 {
     public async Task<string?> Handle(CreateCountryCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Creating country: " + request.Name);
+        logger.LogInformation("Creating country: {@country}", request);
         var country = mapper.Map<Country>(request);
         var id = await countriesRepository.CreateAsync(country);
         if (id == null)
@@ -19,7 +19,7 @@ public class CreateCountryCommandHandler(ILogger<CreateCountryCommandHandler> lo
             logger.LogError("Country could not be created");
             return id;
         }
-        logger.LogInformation("Country created with id: " + id);
+        logger.LogInformation("Country created with id: {Id}", id);
         return id;
     }
 }

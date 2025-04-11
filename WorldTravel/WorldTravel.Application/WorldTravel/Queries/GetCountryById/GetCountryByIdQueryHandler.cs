@@ -11,7 +11,7 @@ public class GetCountryByIdQueryHandler(ILogger<GetCountryByIdQueryHandler> logg
 {
     public async Task<CountryDto?> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting country by id: " + request.Id);
+        logger.LogInformation($"Getting country by id: {request.Id}");
         var country = await countriesRepository.GetByIdAsync(request.Id);
         var countryDto = mapper.Map<CountryDto>(country);
 
