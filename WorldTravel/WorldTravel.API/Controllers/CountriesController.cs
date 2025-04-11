@@ -25,10 +25,6 @@ public class CountriesController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<CountryDto?>> GetById([FromRoute] string id)
     {
         var country = await mediator.Send(new GetCountryByIdQuery(id));
-        if (country == null)
-        {
-            return NotFound();
-        }
         return Ok(country);
     }
 
@@ -50,12 +46,8 @@ public class CountriesController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCountry([FromRoute] string id)
     {
-        var isDeleted = await mediator.Send(new DeleteCountryCommand(id));
-        if (isDeleted)
-        {
-            return NoContent();
-        }
-        return NotFound();
+        await mediator.Send(new DeleteCountryCommand(id));
+        return NoContent();
     }
 
 
@@ -64,11 +56,7 @@ public class CountriesController(IMediator mediator) : ControllerBase
     {
         command.Id = id;
 
-        var isUpdated = await mediator.Send(new UpdateCountryCommand());
-        if (isUpdated)
-        {
-            return NoContent();
-        }
-        return NotFound();
+        await mediator.Send(new UpdateCountryCommand());
+        return NoContent();
     }
 }

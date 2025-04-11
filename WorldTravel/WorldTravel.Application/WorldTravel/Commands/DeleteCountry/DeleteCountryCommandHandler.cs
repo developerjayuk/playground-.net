@@ -1,25 +1,20 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using WorldTravel.Domain.Entities;
+using WorldTravel.Domain.Exceptions;
 using WorldTravel.Domain.Repositories;
 
 namespace WorldTravel.Application.WorldTravel.Commands.DeleteCountry;
 
 public class DeleteCountryCommandHandler(ILogger<DeleteCountryCommandHandler> logger, ICountriesRepository countriesRepository) 
-    : IRequestHandler<DeleteCountryCommand, bool>
+    : IRequestHandler<DeleteCountryCommand>
 {
-    public async Task<bool> Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation($"Deleting country with Id: {request.Id}");
-        var country = await countriesRepository.GetByIdAsync(request.Id);
-
-        if (country is null)
-        {
-            logger.LogError($"Country with Id: {request.Id} not found");
-            return false;
-        }
-
+        var country = await countriesRepository.GetByIdAsync(request.Id) 
+            ?? throw new NotFoundException(nameof(Country), request.Id);
         await countriesRepository.DeleteAsync(country);
-        return true;
     }
 }
 

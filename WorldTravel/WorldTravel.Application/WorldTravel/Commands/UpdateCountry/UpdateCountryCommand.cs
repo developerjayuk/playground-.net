@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using WorldTravel.Domain.Entities;
 
 namespace WorldTravel.Application.WorldTravel.Commands.UpdateCountry;
 
-public class UpdateCountryCommand() : IRequest<bool>
+public class UpdateCountryCommand() : IRequest
 {
     public string Id { get; set; } = default!;
     public string Description { get; set; } = default!;

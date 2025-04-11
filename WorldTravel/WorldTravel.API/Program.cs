@@ -2,6 +2,7 @@ using WorldTravel.Infastructure.Extensions;
 using WorldTravel.Infastructure.Seeders;
 using WorldTravel.Application.Extensions;
 using Serilog;
+using WorldTravel.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<RequestTimeLoggerMiddleware>();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -22,6 +26,8 @@ var seeder = app.Services.CreateScope().ServiceProvider.GetRequiredService<IWorl
 await seeder.Seed();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestTimeLoggerMiddleware>();
 app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
