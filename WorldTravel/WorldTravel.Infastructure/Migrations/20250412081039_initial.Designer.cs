@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorldTravel.Infastructure.Persistence;
 
@@ -11,9 +12,11 @@ using WorldTravel.Infastructure.Persistence;
 namespace WorldTravel.Infastructure.Migrations
 {
     [DbContext(typeof(WorldTravelDbContext))]
-    partial class WorldTravelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250412081039_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,9 +242,6 @@ namespace WorldTravel.Infastructure.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly?>("DateOfBirth")
-                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)

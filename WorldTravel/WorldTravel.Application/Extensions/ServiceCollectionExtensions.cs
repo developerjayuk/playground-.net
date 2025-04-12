@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using WorldTravel.Application.Countries;
+using WorldTravel.Application.Users;
 
 namespace WorldTravel.Application.Extensions;
 
@@ -19,7 +20,8 @@ public static class ServiceCollectionExtensions
         services.AddValidatorsFromAssembly(applicationAssembly)
             .AddFluentValidationAutoValidation();
 
-        services.AddValidatorsFromAssembly(applicationAssembly)
-            .AddFluentValidationAutoValidation();
+        services.AddScoped<IUserContext, UserContext>();
+
+        services.AddHttpContextAccessor();
     }
 }

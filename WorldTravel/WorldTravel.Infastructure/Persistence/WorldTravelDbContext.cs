@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WorldTravel.Domain.Entities;
 
 namespace WorldTravel.Infastructure.Persistence
 {
-    internal class WorldTravelDbContext(DbContextOptions<WorldTravelDbContext> options) : DbContext(options)
+    internal class WorldTravelDbContext(DbContextOptions<WorldTravelDbContext> options) : IdentityDbContext<User>(options)
     {
         internal DbSet<Continent> Continents { get; set; }
         internal DbSet<Country> Countries { get; set; }

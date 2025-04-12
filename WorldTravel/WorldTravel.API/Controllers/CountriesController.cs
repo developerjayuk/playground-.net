@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.Countries.Commands.CreateCountry;
 using WorldTravel.Application.Countries.Commands.DeleteCountry;
@@ -11,6 +12,7 @@ namespace WorldTravel.API.Controllers;
 
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class CountriesController(IMediator mediator) : ControllerBase
 {

@@ -1,23 +1,17 @@
+using Serilog;
+using WorldTravel.API.Extensions;
+using WorldTravel.API.Middlewares;
+using WorldTravel.Application.Extensions;
+using WorldTravel.Domain.Entities;
 using WorldTravel.Infastructure.Extensions;
 using WorldTravel.Infastructure.Seeders;
-using WorldTravel.Application.Extensions;
-using Serilog;
-using WorldTravel.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<RequestTimeLoggerMiddleware>();
-
+builder.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-
-builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 
@@ -28,6 +22,7 @@ await seeder.Seed();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseMiddleware<RequestTimeLoggerMiddleware>();
+app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())

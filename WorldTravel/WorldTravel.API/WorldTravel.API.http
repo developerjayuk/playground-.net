@@ -1,14 +1,19 @@
 @host = https://localhost
 @port = 7208
 @WorldTravel.API_HostAddress = https://localhost:7208
+@token = CfDJ8OnDJ2w0exhPrLU2fLb0YN9INmZCiQwVR3x6ba5D61WPkDcV6Q8C385AoXmzUMqfM01eHqqBoUWhb0f8pvCixZs3fZ37BqrHSHXn0J1Ilt7-9K-E4pEGDA8hWv10wHAexaz8wObphL73TKNFlf6GsxLTIBPHxtoMxKn7EkO8KVzosvvWaaUoBHkX2xt9HWvgZzI-oxz4P_GbS9aHri3bWMjL1CLENHfzN-0CO4otdZ6xxmZmQkbsxMd-bDWEqqxNgI9OM_p196rW6Oy-_aUBZH79m6AiPSXyXRph4teN8q1EMRhMN7OEPdA_sxW8VIjiiXNor1ASp1dnMZrT155MphLA8Xvq3rh9zuqEUFfF4sb0D_6naDzmx8GJ7ll8gSBTWD3JCxw0UAaVPdr3DlopElef4baADVQCKPZVBuXgQEy_PW5WPM3LQJ5PUyaA6FCE3RHrgv7qe1Yq0HZ_K4X2pAdDINMC0JqveyvyGK8mbIyo8xc1f9bDk4C-6hganBaobPhIjRQvwsvDN6XGQGz0b9zBeadpGWX2Ueu4IponbY-A4DbyoOROEslcAwr_lS9NxvG8XkYkxO93GD3k2AQ0-GzE06UqUs78-g2F0pjVL0nvuDWcf-Szesx-0GMA4f9EscOo4TFidF9xLkxHK8iWiM1TCoqqNubPWBd3SYFMby-53oBml0dPWG3pqyNCKI4a_42pzWfEmW4NAIi_F4Dv18Y
 
 ### get all countries
 GET {{WorldTravel.API_HostAddress}}/api/countries
+Authorization: Bearer {{token}}
 
 ### get country by id
 GET {{WorldTravel.API_HostAddress}}/api/countries/en
+Authorization: Bearer {{token}}
+
 ### create new country
 POST {{WorldTravel.API_HostAddress}}/api/countries
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -21,16 +26,20 @@ Content-Type: application/json
 }
 ### delete country
 DELETE {{WorldTravel.API_HostAddress}}/api/countries/eng
+Authorization: Bearer {{token}}
 
 ### get all continents
 GET {{WorldTravel.API_HostAddress}}/api/continents
+Authorization: Bearer {{token}}
 
 ### get continent by id
 GET {{WorldTravel.API_HostAddress}}/api/continents/eu
+Authorization: Bearer {{token}}
 
 ###
 
 PATCH {{WorldTravel.API_HostAddress}}/api/countries/en
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -39,10 +48,30 @@ Content-Type: application/json
 
 ### create new city
 POST {{WorldTravel.API_HostAddress}}/api/countries/US/cities
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "Name": "New York"
 }
 
-###
+### register user
+POST {{WorldTravel.API_HostAddress}}/api/identity/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "email": "tomsmith@gmail.com",
+  "password": "Abc123!"
+}
+
+### login user
+POST {{WorldTravel.API_HostAddress}}/api/identity/login
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "email": "tomsmith@gmail.com",
+  "password": "Abc123!"
+}
+
