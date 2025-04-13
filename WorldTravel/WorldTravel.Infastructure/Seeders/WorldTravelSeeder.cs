@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WorldTravel.Domain.Constants;
 using WorldTravel.Domain.Entities;
 using WorldTravel.Infastructure.Persistence;
 
@@ -6,23 +8,51 @@ namespace WorldTravel.Infastructure.Seeders;
 
 internal class WorldTravelSeeder(WorldTravelDbContext dbContext) : IWorldTravelSeeder
 {
+    // todo : add an admin user with details in the .env file
     public async Task Seed()
     {
         if (await dbContext.Database.CanConnectAsync())
         {
-            if (await dbContext.Countries.AnyAsync())
+            // seed continents
+            if (!await dbContext.Continents.AnyAsync())
             {
-                return;
+                var continents = GetContinents();
+                await dbContext.Continents.AddRangeAsync(continents);
+                await dbContext.SaveChangesAsync();
             }
 
-            var countries = GetCountries();
-            var continents = GetContinents();
+            // seed countries
+            if (!await dbContext.Countries.AnyAsync())
+            {
+                var countries = GetCountries();
+                await dbContext.Countries.AddRangeAsync(countries);
+                await dbContext.SaveChangesAsync();
+            }
 
-            await dbContext.Continents.AddRangeAsync(continents);
-            await dbContext.Countries.AddRangeAsync(countries);
-            await dbContext.SaveChangesAsync();
+            // seed roles
+            if (!await dbContext.Roles.AnyAsync())
+            {
+                var roles = GetRoles();
+                await dbContext.Roles.AddRangeAsync(roles);
+                await dbContext.SaveChangesAsync();
+            }
+
+
         }
     }
+
+    private IEnumerable<IdentityRole> GetRoles()
+    {
+        List<IdentityRole> roles =
+        [
+            new(UserRoles.Admin) { NormalizedName = UserRoles.Admin.ToUpper() },
+            new(UserRoles.Owner) { NormalizedName = UserRoles.Owner.ToUpper() },
+            new(UserRoles.User) { NormalizedName = UserRoles.User.ToUpper() },
+        ];
+       
+        return roles;
+    }
+
     private IEnumerable<Continent> GetContinents()
     {
         // https://datahub.io/core/continent-codes

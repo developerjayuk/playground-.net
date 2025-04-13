@@ -207,6 +207,10 @@ namespace WorldTravel.Infastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -224,6 +228,8 @@ namespace WorldTravel.Infastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContinentId");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Countries");
                 });
@@ -363,6 +369,14 @@ namespace WorldTravel.Infastructure.Migrations
                         .HasForeignKey("ContinentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WorldTravel.Domain.Entities.User", "CreatedBy")
+                        .WithMany("CreatedCountries")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("WorldTravel.Domain.Entities.Continent", b =>
@@ -373,6 +387,11 @@ namespace WorldTravel.Infastructure.Migrations
             modelBuilder.Entity("WorldTravel.Domain.Entities.Country", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("WorldTravel.Domain.Entities.User", b =>
+                {
+                    b.Navigation("CreatedCountries");
                 });
 #pragma warning restore 612, 618
         }

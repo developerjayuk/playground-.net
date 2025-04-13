@@ -6,6 +6,10 @@ using WorldTravel.Infastructure.Seeders;
 using WorldTravel.Infastructure.Repositories;
 using WorldTravel.Domain.Repositories;
 using WorldTravel.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using WorldTravel.Infastructure.Authorization;
+using WorldTravel.Infastructure.Authorization.Requirements;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WorldTravel.Infastructure.Extensions;
 
@@ -17,12 +21,19 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<WorldTravelDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
 
         services.AddIdentityApiEndpoints<User>()
+            .AddRoles<IdentityRole>()
+            .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>()
             .AddEntityFrameworkStores<WorldTravelDbContext>();
 
         services.AddScoped<IWorldTravelSeeder, WorldTravelSeeder>();
         services.AddScoped<IContinentsRepository, ContinentsRepository>();
         services.AddScoped<ICountriesRepository, CountriesRepository>();
         services.AddScoped<ICitiesRepository, CitiesRepository>();
+
+        // just an example of how to use
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyNames.Atleast18, builder => builder.AddRequirements(new MinimumAgeRequirement(18)));
+        services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
     }
 }
 

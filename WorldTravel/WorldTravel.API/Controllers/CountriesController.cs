@@ -31,6 +31,7 @@ public class CountriesController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Owner")]
     [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CreateCountry(CreateCountryCommand command)
     {
@@ -45,6 +46,7 @@ public class CountriesController(IMediator mediator) : ControllerBase
 
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Owner")]
     [ProducesResponseType(StatusCodes.Status204NoContent), ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCountry([FromRoute] string id)
     {
@@ -54,11 +56,12 @@ public class CountriesController(IMediator mediator) : ControllerBase
 
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin, Owner")]
     public async Task<IActionResult> UpdateCountry([FromRoute] string id, UpdateCountryCommand command)
     {
         command.Id = id;
 
-        await mediator.Send(new UpdateCountryCommand());
+        await mediator.Send(command);
         return NoContent();
     }
 }

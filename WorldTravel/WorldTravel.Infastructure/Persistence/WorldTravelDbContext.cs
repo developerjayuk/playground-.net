@@ -17,6 +17,11 @@ namespace WorldTravel.Infastructure.Persistence
             // do not auto generate and use ISO codes instead
             modelBuilder.Entity<Country>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Continent>().Property(c => c.Id).ValueGeneratedNever();
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.CreatedCountries)
+                .WithOne(c => c.CreatedBy)
+                .HasForeignKey(c => c.CreatedById);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.Countries;
 using WorldTravel.Application.Countries.Dtos;
 
@@ -6,10 +7,13 @@ namespace WorldTravel.API.Controllers;
 
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
+
 public class ContinentsController(IContinentsService continentsService) : ControllerBase
 {
     [HttpGet]
+
     public async Task<ActionResult<IEnumerable<ContinentDto>>> GetAll()
     {
         var continents = await continentsService.GetAllContinents();

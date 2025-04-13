@@ -11,4 +11,7 @@ public class Country
     public int NumberOfTourists { get; set; } = default!;
     public List<City> Cities { get; set; } = new();
 
+    public User CreatedBy { get; set; } = default!;
+    public string CreatedById { get; set; } = default!;
+
 }

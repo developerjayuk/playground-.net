@@ -30,6 +30,7 @@ namespace WorldTravel.Infastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -178,11 +179,18 @@ namespace WorldTravel.Infastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContinentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Population = table.Column<int>(type: "int", nullable: false),
-                    NumberOfTourists = table.Column<int>(type: "int", nullable: false)
+                    NumberOfTourists = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Countries_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Countries_Continents_ContinentId",
                         column: x => x.ContinentId,
@@ -260,6 +268,11 @@ namespace WorldTravel.Infastructure.Migrations
                 name: "IX_Countries_ContinentId",
                 table: "Countries",
                 column: "ContinentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_CreatedById",
+                table: "Countries",
+                column: "CreatedById");
         }
 
         /// <inheritdoc />
@@ -287,10 +300,10 @@ namespace WorldTravel.Infastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Countries");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Continents");

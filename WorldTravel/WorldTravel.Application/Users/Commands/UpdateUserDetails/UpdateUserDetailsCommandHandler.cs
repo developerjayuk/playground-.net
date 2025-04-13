@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using WorldTravel.Domain.Entities;
 using WorldTravel.Domain.Exceptions;
 
-namespace WorldTravel.Application.Users.Commands;
+namespace WorldTravel.Application.Users.Commands.UpdateUserDetails;
 
 public class UpdateUserDetailsCommandHandler(ILogger<UpdateUserDetailsCommandHandler> logger, IUserContext userContext, IUserStore<User> userStore) : IRequestHandler<UpdateUserDetailsCommand>
 {
