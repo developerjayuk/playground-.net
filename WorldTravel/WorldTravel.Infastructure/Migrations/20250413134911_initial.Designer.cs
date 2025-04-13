@@ -12,7 +12,7 @@ using WorldTravel.Infastructure.Persistence;
 namespace WorldTravel.Infastructure.Migrations
 {
     [DbContext(typeof(WorldTravelDbContext))]
-    [Migration("20250413075838_initial")]
+    [Migration("20250413134911_initial")]
     partial class initial
     {
         /// <inheritdoc />

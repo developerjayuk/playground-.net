@@ -15,6 +15,23 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
         return countries;
     }
 
+    public async Task<(IEnumerable<Country>, int)> GetAllMatchingSearchAsync(string? searchPhrase, int? page, int? size)
+    {
+        var search = searchPhrase?.Trim().ToLower();
+
+        var baseQuery = dbContext.Countries
+            .Where(c => searchPhrase == null || (c.Name.ToLower().Contains(search!) || c.Description.ToLower().Contains(search!)));
+
+        var totalCount = await baseQuery.CountAsync();
+
+        var countries = await baseQuery
+            .Include(c => c.Cities)
+            .Skip(size * (page - 1) ?? 0)
+            .Take(size ?? 100)
+            .ToListAsync();
+        return (countries, totalCount);
+    }
+
     public async Task<Country?> GetByIdAsync(string id)
     {
         var country = await dbContext.Countries

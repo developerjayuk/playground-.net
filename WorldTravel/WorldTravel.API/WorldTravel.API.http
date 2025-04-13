@@ -7,6 +7,10 @@
 GET {{WorldTravel.API_HostAddress}}/api/countries
 Authorization: Bearer {{token}}
 
+### get all countries by search
+GET {{WorldTravel.API_HostAddress}}/api/countries?searchPhrase=south&size=3&page=1
+Authorization: Bearer {{token}}
+
 ### get country by id
 GET {{WorldTravel.API_HostAddress}}/api/countries/en
 Authorization: Bearer {{token}}

@@ -12,14 +12,13 @@ namespace WorldTravel.API.Controllers;
 
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 public class CountriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CountryDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<CountryDto>>> GetAll([FromQuery] GetAllCountriesQuery query)
     {
-        var countries = await mediator.Send(new GetAllCountriesQuery());
+        var countries = await mediator.Send(query);
         return Ok(countries);
     }
 
