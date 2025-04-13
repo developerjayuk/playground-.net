@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using WorldTravel.Infastructure.Authorization;
 using WorldTravel.Infastructure.Authorization.Requirements;
 using Microsoft.AspNetCore.Authorization;
+using WorldTravel.Infastructure.Authorization.Services;
+using WorldTravel.Domain.Interface;
 
 namespace WorldTravel.Infastructure.Extensions;
 
@@ -34,6 +36,7 @@ public static class ServiceCollectionExtensions
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.Atleast18, builder => builder.AddRequirements(new MinimumAgeRequirement(18)));
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+        services.AddScoped<ICountryAuthorizationService, CountryAuthorizationService>();
     }
 }
 
