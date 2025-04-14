@@ -13,7 +13,7 @@ public class GetAllCountriesQueryHandler(ILogger<GetAllCountriesQueryHandler> lo
     {
         logger.LogInformation("Getting all countries");
 
-        var (countries, totalCount) = await countriesRepository.GetAllMatchingSearchAsync(request.SearchPhrase, request.Page, request.Size);
+        var (countries, totalCount) = await countriesRepository.GetAllMatchingSearchAsync(request.SearchPhrase, request.Page, request.Size, request.SortBy, request.Direction);
         var countriesDto = mapper.Map<IEnumerable<CountryDto>>(countries);
 
         var result = new PagedResult<CountryDto>(countriesDto, totalCount, request.Size, request.Page);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WorldTravel.Domain.Constants;
 using WorldTravel.Domain.Entities;
 using WorldTravel.Domain.Repositories;
 using WorldTravel.Infastructure.Persistence;
@@ -15,7 +16,7 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
         return countries;
     }
 
-    public async Task<(IEnumerable<Country>, int)> GetAllMatchingSearchAsync(string? searchPhrase, int? page, int? size)
+    public async Task<(IEnumerable<Country>, int)> GetAllMatchingSearchAsync(string? searchPhrase, int? page, int? size, string? sortBy, Sort? direction)
     {
         var search = searchPhrase?.Trim().ToLower();
 
@@ -23,6 +24,9 @@ internal class CountriesRepository(WorldTravelDbContext dbContext) : ICountriesR
             .Where(c => searchPhrase == null || (c.Name.ToLower().Contains(search!) || c.Description.ToLower().Contains(search!)));
 
         var totalCount = await baseQuery.CountAsync();
+
+        if (!string.IsNullOrEmpty(sortBy))
+            baseQuery = direction == Sort.Desc ? baseQuery.OrderByDescending(c => EF.Property<object>(c, sortBy)) : baseQuery.OrderBy(c => EF.Property<object>(c, sortBy));
 
         var countries = await baseQuery
             .Include(c => c.Cities)

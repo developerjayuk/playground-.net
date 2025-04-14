@@ -8,7 +8,7 @@ GET {{WorldTravel.API_HostAddress}}/api/countries
 Authorization: Bearer {{token}}
 
 ### get all countries by search
-GET {{WorldTravel.API_HostAddress}}/api/countries?searchPhrase=south&size=3&page=1
+GET {{WorldTravel.API_HostAddress}}/api/countries?searchPhrase=south&size=5&page=1&sortcolumn=abc&direction=desc
 Authorization: Bearer {{token}}
 
 ### get country by id
