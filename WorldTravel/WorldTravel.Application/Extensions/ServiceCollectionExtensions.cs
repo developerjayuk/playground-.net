@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using WorldTravel.Application.Continents;
 using WorldTravel.Application.Countries;
 using WorldTravel.Application.Users;
 
@@ -13,7 +14,6 @@ public static class ServiceCollectionExtensions
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
 
         services.AddMediatR(config => config.RegisterServicesFromAssembly(applicationAssembly));
-        services.AddScoped<IContinentsService, ContinentsService>();
 
         services.AddAutoMapper(applicationAssembly);
 

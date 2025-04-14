@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using WorldTravel.Application.Countries.Dtos;
+using WorldTravel.Application.Dtos;
 using WorldTravel.Domain.Entities;
 using WorldTravel.Domain.Exceptions;
 using WorldTravel.Domain.Repositories;

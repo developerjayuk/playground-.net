@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.Cities.Commands.CreateCity;
 using WorldTravel.Application.Cities.Commands.DeleteCityForCountry;
-using WorldTravel.Application.Cities.Dtos;
 using WorldTravel.Application.Cities.Queries.GetCitiesForCountry;
 using WorldTravel.Application.Cities.Queries.GetCityById;
-using WorldTravel.Application.Countries.Commands.DeleteCountry;
 using WorldTravel.Application.Countries.Commands.UpdateCountry;
+using WorldTravel.Application.Dtos;
 
 namespace WorldTravel.API.Controllers;
 
 
 [ApiController]
-[Authorize]
+//[Authorize]
 [Route("api/countries/{countryId}/[controller]")]
 public class CitiesController(IMediator mediator) : ControllerBase
 {

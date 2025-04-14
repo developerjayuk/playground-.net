@@ -1,4 +1,4 @@
-﻿namespace WorldTravel.Application.Cities.Dtos;
+﻿namespace WorldTravel.Application.Dtos;
 
 public class CityDto
 {

@@ -1,6 +1,4 @@
-﻿using WorldTravel.Application.Cities.Dtos;
-
-namespace WorldTravel.Application.Countries.Dtos;
+﻿namespace WorldTravel.Application.Dtos;
 
 public class CountryDto
 {

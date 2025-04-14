@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using WorldTravel.Application.Common;
-using WorldTravel.Application.Countries.Dtos;
+using WorldTravel.Application.Dtos;
 using WorldTravel.Domain.Repositories;
 
 namespace WorldTravel.Application.Countries.Queries.GetAllCountries;

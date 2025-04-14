@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using WorldTravel.Domain.Entities;
 
-namespace WorldTravel.Application.Countries.Dtos;
+namespace WorldTravel.Application.Dtos;
 
 public class ContinentProfile : Profile
 {

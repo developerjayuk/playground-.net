@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using WorldTravel.Application.Countries.Dtos;
+using WorldTravel.Application.Dtos;
 
 namespace WorldTravel.Application.Countries.Queries.GetCountryById;
 

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using WorldTravel.Application.Dtos;
 
-namespace WorldTravel.Application.Countries.Validators;
+namespace WorldTravel.Application.Continents.Validators;
 
 public class CreateContinentDtoValidator : AbstractValidator<CreateContinentDto>
 {

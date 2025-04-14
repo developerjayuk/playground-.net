@@ -12,7 +12,7 @@ using WorldTravel.Infastructure.Persistence;
 namespace WorldTravel.Infastructure.Migrations
 {
     [DbContext(typeof(WorldTravelDbContext))]
-    [Migration("20250413134911_initial")]
+    [Migration("20250414114815_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -189,6 +189,10 @@ namespace WorldTravel.Infastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -197,6 +201,8 @@ namespace WorldTravel.Infastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Continents");
                 });
@@ -363,6 +369,17 @@ namespace WorldTravel.Infastructure.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WorldTravel.Domain.Entities.Continent", b =>
+                {
+                    b.HasOne("WorldTravel.Domain.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("WorldTravel.Domain.Entities.Country", b =>

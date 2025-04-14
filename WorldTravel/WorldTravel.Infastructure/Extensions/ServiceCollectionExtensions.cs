@@ -37,6 +37,7 @@ public static class ServiceCollectionExtensions
             .AddPolicy(PolicyNames.Atleast18, builder => builder.AddRequirements(new MinimumAgeRequirement(18)));
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
         services.AddScoped<ICountryAuthorizationService, CountryAuthorizationService>();
+        services.AddScoped<IContinentAuthorizationService, ContinentAuthorizationService>();
     }
 }
 

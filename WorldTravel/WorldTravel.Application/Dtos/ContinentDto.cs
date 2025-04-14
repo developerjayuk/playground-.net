@@ -1,4 +1,4 @@
-﻿namespace WorldTravel.Application.Countries.Dtos;
+﻿namespace WorldTravel.Application.Dtos;
 
 public class ContinentDto
 {

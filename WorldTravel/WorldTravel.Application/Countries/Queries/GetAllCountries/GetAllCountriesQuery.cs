@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using WorldTravel.Application.Common;
-using WorldTravel.Application.Countries.Dtos;
+using WorldTravel.Application.Dtos;
 using WorldTravel.Domain.Constants;
 
 namespace WorldTravel.Application.Countries.Queries.GetAllCountries;

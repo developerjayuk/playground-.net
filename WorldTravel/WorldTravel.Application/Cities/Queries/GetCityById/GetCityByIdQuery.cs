@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using WorldTravel.Application.Cities.Dtos;
+using WorldTravel.Application.Dtos;
 
 namespace WorldTravel.Application.Cities.Queries.GetCityById;
 

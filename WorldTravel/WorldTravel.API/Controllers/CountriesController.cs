@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using WorldTravel.Application.Countries.Commands.CreateCountry;
 using WorldTravel.Application.Countries.Commands.DeleteCountry;
 using WorldTravel.Application.Countries.Commands.UpdateCountry;
-using WorldTravel.Application.Countries.Dtos;
 using WorldTravel.Application.Countries.Queries.GetAllCountries;
 using WorldTravel.Application.Countries.Queries.GetCountryById;
+using WorldTravel.Application.Dtos;
 
 namespace WorldTravel.API.Controllers;
 
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class CountriesController(IMediator mediator) : ControllerBase
 {

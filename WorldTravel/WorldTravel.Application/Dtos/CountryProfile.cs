@@ -3,7 +3,7 @@ using WorldTravel.Application.Countries.Commands.CreateCountry;
 using WorldTravel.Application.Countries.Commands.UpdateCountry;
 using WorldTravel.Domain.Entities;
 
-namespace WorldTravel.Application.Countries.Dtos;
+namespace WorldTravel.Application.Dtos;
 
 public class CountryProfile : Profile
 {

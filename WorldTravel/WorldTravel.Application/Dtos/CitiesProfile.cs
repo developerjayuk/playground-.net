@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using WorldTravel.Application.Cities.Commands.CreateCity;
-using WorldTravel.Application.Cities.Dtos;
 using WorldTravel.Domain.Entities;
 
-namespace WorldTravel.Application.Countries.Dtos;
+namespace WorldTravel.Application.Dtos;
 
 public class CityProfile : Profile
 {
