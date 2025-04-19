@@ -24,7 +24,7 @@ public static class ServiceCollectionExtensions
 
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole>()
-            .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>()
+            .AddClaimsPrincipalFactory<CountryUserClaimsPrincipalFactory>()
             .AddEntityFrameworkStores<WorldTravelDbContext>();
 
         services.AddScoped<IWorldTravelSeeder, WorldTravelSeeder>();

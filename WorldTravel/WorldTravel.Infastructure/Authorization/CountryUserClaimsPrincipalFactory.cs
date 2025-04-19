@@ -5,7 +5,7 @@ using WorldTravel.Domain.Entities;
 
 namespace WorldTravel.Infastructure.Authorization;
 
-public class RestaurantUserClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IOptions<IdentityOptions> options) :
+public class CountryUserClaimsPrincipalFactory(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IOptions<IdentityOptions> options) :
     UserClaimsPrincipalFactory<User, IdentityRole>(userManager, roleManager, options)
 {
     public override async Task<ClaimsPrincipal> CreateAsync(User user)

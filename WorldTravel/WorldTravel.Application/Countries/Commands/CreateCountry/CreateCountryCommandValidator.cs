@@ -25,5 +25,11 @@ public class CreateCountryCommandValidator : AbstractValidator<CreateCountryComm
             .NotEmpty()
             .Length(2)
             .WithMessage("ContinentId must be 2 characters in length.");
+        RuleFor(c => c.Population)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Population must be a positive number.");        
+        RuleFor(c => c.NumberOfTourists)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Population must be a positive number.");
     }
 }
