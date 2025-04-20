@@ -17,6 +17,7 @@ namespace WorldTravel.API.Controllers;
 public class CountriesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<CountryDto>>> GetAll([FromQuery] GetAllCountriesQuery query)
     {
         var countries = await mediator.Send(query);

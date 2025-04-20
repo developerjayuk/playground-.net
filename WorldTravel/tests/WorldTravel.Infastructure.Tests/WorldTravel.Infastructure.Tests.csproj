@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorldTravel.Application\WorldTravel.Application.csproj" />
+    <ProjectReference Include="..\..\src\WorldTravel.Infastructure\WorldTravel.Infastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
