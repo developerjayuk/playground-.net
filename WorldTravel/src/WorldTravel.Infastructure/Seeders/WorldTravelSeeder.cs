@@ -13,6 +13,12 @@ internal class WorldTravelSeeder(WorldTravelDbContext dbContext) : IWorldTravelS
     // todo : add an admin user with details in the .env file
     public async Task Seed()
     {
+        // check for any pending migrations
+        if (dbContext.Database.GetPendingMigrations().Any())
+        {
+            await dbContext.Database.MigrateAsync();
+        }
+
         if (await dbContext.Database.CanConnectAsync())
         {
             // seed roles
