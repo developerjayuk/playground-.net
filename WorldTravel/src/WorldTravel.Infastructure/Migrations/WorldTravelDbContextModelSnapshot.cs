@@ -167,6 +167,10 @@ namespace WorldTravel.Infastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -177,6 +181,8 @@ namespace WorldTravel.Infastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Cities");
                 });
@@ -364,14 +370,22 @@ namespace WorldTravel.Infastructure.Migrations
                     b.HasOne("WorldTravel.Domain.Entities.Country", null)
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("WorldTravel.Domain.Entities.User", "CreatedBy")
+                        .WithMany("CreatedCities")
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("WorldTravel.Domain.Entities.Continent", b =>
                 {
                     b.HasOne("WorldTravel.Domain.Entities.User", "CreatedBy")
-                        .WithMany()
+                        .WithMany("CreatedContinents")
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -384,7 +398,7 @@ namespace WorldTravel.Infastructure.Migrations
                     b.HasOne("WorldTravel.Domain.Entities.Continent", null)
                         .WithMany("Countries")
                         .HasForeignKey("ContinentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("WorldTravel.Domain.Entities.User", "CreatedBy")
@@ -408,6 +422,10 @@ namespace WorldTravel.Infastructure.Migrations
 
             modelBuilder.Entity("WorldTravel.Domain.Entities.User", b =>
                 {
+                    b.Navigation("CreatedCities");
+
+                    b.Navigation("CreatedContinents");
+
                     b.Navigation("CreatedCountries");
                 });
 #pragma warning restore 612, 618

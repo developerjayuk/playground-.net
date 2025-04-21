@@ -15,13 +15,26 @@ namespace WorldTravel.Infastructure.Persistence
             base.OnModelCreating(modelBuilder);
 
             // do not auto generate and use ISO codes instead
-            modelBuilder.Entity<Country>().Property(c => c.Id).ValueGeneratedNever();
             modelBuilder.Entity<Continent>().Property(c => c.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Country>().Property(c => c.Id).ValueGeneratedNever();
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.CreatedCountries)
                 .WithOne(c => c.CreatedBy)
                 .HasForeignKey(c => c.CreatedById);
+
+            modelBuilder.Entity<Country>()
+                .HasOne<Continent>()
+                .WithMany(c => c.Countries)
+                .HasForeignKey(c => c.ContinentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<City>()
+                .HasOne<Country>()
+                .WithMany(c => c.Cities)
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

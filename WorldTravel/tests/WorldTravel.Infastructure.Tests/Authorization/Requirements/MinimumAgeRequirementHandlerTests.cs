@@ -12,8 +12,7 @@ namespace WorldTravel.Infastructure.Tests.Authorization.Requirements;
 
 public class MinimumAgeRequirementHandlerTests
 {
-    // todo - fix the test
-    [Fact(Skip = "Skipping this test temporarily.")]
+    [Fact]
     public async Task HandleRequirementAsync_UserMeetsMinimumAgeRequirement_ShouldSucceed()
     {
         // Arrange

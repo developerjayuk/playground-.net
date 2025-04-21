@@ -18,8 +18,4 @@
     <ProjectReference Include="..\WorldTravel.Application\WorldTravel.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
